@@ -1,0 +1,161 @@
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Jquery JS -->
+<script type="text/javascript" src="../../js/jquery/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery-migrate-1.2.1.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="../../js/bootstrap/bootstrap.min.js"></script>
+<script src="../../js/bootstrap/custom.js"></script>
+
+<!-- Datatables JS -->
+<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/media/js/jquery.dataTables.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../../css/bootstrap/bootstrap.css" />
+<link rel="stylesheet" href="../../css/bootstrap/variables.less" />
+<link rel="stylesheet" href="../../css/bootstrap/bootswatch.less" />
+<link rel="stylesheet" href="../../css/bootstrap/_variables.scss" />
+<link rel="stylesheet" href="../../css/bootstrap/_bootswatch.scss" />
+
+<!-- Datatables CSS -->
+<link rel="stylesheet" href="../../js/DataTables-1.10.11/media/css/jquery.dataTables.css" />
+
+<!-- Codemirror JS and CSS -->
+<script type="text/javascript" src="../../js/codemirror-5.13/lib/codemirror.js"></script>		
+<link rel="stylesheet" href="../../js/codemirror-5.13/lib/codemirror.css" />
+<link rel="stylesheet" href="../../js/codemirror-5.13/theme/blackboard.css" />
+<link rel="stylesheet" href="../../js/codemirror-5.13/theme/midnight.css" />
+
+<script type="text/javascript" src="../../js/codemirror-5.13/addon/edit/matchbrackets.js"></script>
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/clike/clike.js"></script>
+
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/css/css.js"></script>
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/htmlmixed/htmlmixed.js"></script>
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/php/php.js"></script>
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/sql/sql.js"></script>
+<script type="text/javascript" src="../../js/codemirror-5.13/mode/xml/xml.js"></script>
+
+<style>
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;	
+</style>
+<article>
+	<div class="form-group" >
+		<label class="col-lg-2 control-label">Language</label>
+		<div class="col-lg-10">
+			<select id="selectLanguage" onchange="changeLanguage()">
+				<option value="plain">-- Plain text --</option>
+				<option value="css">css</option>
+				<option value="html">html</option>
+				<option value="javascript">javascript</option>
+				<option value="php">php</option>
+				<option value="sql">sql</option>
+				<option value="xml">xml</option>
+			</select>
+		</div>
+		<textarea id="txaSnippetCode" name="txaSnippetCode" ></textarea>
+	</div>
+	
+	
+	<script type="text/javascript">
+		
+		var editor = CodeMirror.fromTextArea(document.getElementById('txaSnippetCode'), {
+			
+			theme: 'midnight',
+			//lineNumbers: true,
+			matchBrackets: true,
+			mode: '',
+			indentUnit: 4,
+			indentWithTabs: true
+		});
+		setTimeout(function() {
+			editor.refresh();
+		}, 300);
+		
+		//Get mode of the language
+		function fnLanguage(language){
+			
+			switch(language) {
+				
+				case 'plain':
+				var modeLanguage = '';
+				break;
+				
+				case 'css':
+				var modeLanguage = 'text/css';
+				break;
+				
+				case 'javascript':
+				var modeLanguage = 'application/javascript';
+				break;
+				
+				case 'html':
+				var modeLanguage = {
+					name: 'htmlmixed',
+					scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+					mode: null},
+					{matches: /(text|application)\/(x-)?vb(a|script)/i,
+					mode: "vbscript"}]
+				};
+				break;
+				
+				case 'php':
+				var modeLanguage = 'application/x-httpd-php';
+				break;
+				
+				case 'sql':
+				var modeLanguage = 'text/x-sql';
+				break;
+				
+				case 'xml':
+				var modeLanguage = 'application/xml';
+				break;
+				
+			}
+			
+			editor.setOption('mode', modeLanguage);
+		};
+		
+		//Function to change the language
+		function changeLanguage(){
+			
+			var language = $('#selectLanguage').val();
+			language = language.toString();
+			fnLanguage(language);
+		};
+		
+		//Function to get the info of the editor
+		function getValueEditor(){
+			return editor.getValue();
+		};
+		
+		function setValueEditor(codeSnippet){
+			editor.setValue(codeSnippet);
+		};
+		
+		//Function to get the language
+		function getLanguage(){
+			return $('#selectLanguage').val();
+		};
+		
+		function setLanguage(language){
+			$('#selectLanguage').val(language.toString());
+		};
+		
+		//Function to set the language and code
+		function setLanguageCode(language, codeSnippet){
+			
+			setTimeout(function() {
+				editor.refresh();
+			}, 300);
+			$('#selectLanguage').val(language.toString());
+			fnLanguage(language);
+			editor.setValue(codeSnippet);
+			
+		};
+	</script>
+</article>
