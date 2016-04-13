@@ -485,10 +485,7 @@
 				}
 				
 			});
-			
-			//$('#divDetails').text('');
-			//$('#dialogDetailsSnippet').modal('show');
-			
+
 		};
 		
 		//Function for delete snippets
