@@ -75,19 +75,21 @@
 										<thead>
 											<tr>
 												<th width="30%">Title</th>
-												<th width="40%">Description</th>
+												<th width="30%">Description</th>
 												<th width="10%">Language</th>
 												<th width="10%">View/Edit</th>
 												<th width="10%">Delete</th>
+												<th width="10%">Shared</th>
 											</tr>
 										</thead>
 										<tfoot>
 											<tr>
 												<th width="30%">Title</th>
-												<th width="40%">Description</th>
+												<th width="30%">Description</th>
 												<th width="10%">Language</th>
 												<th width="10%">View/Edit</th>
 												<th width="10%">Delete</th>
+												<th width="10%">Shared</th>
 											</tr>
 										</tfoot>
 									</table>
@@ -300,6 +302,10 @@
 			{data: 'SNI_DELETE', className:'dt-center', orderable:false, mRender: function(data, type, full){
 				var ID_SNIPPET = full.ID_SNIPPET;
 				return '<input type="button" value="Delete" class="btn btn-danger btn-xs" onclick="deleteSnippet('+ID_SNIPPET+')"/>';
+			}},
+			{data: 'SNI_SHARED', className:'dt-center', orderable:false, mRender: function(data, type, full){
+				var ID_SNIPPET = full.ID_SNIPPET;
+				return '<input type="button" value="Shared with" class="btn btn-primary btn-xs" onclick="sharedSnipet('+ID_SNIPPET+')"/>';
 			}}
 			]
 		});
@@ -461,6 +467,11 @@
 					}
 				}
 			});
+		};
+		
+		//Function for shared snippet
+		function sharedSnipet(idSnippet){
+			alert(idSnippet);
 		};
 		
 	</script>

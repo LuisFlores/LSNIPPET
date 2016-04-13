@@ -79,8 +79,8 @@
 												<th width="10%">Language</th>
 												<th width="10%">View/Edit</th>
 												<th width="10%">Copy to</th>
-												<th width="10%">Details</th>
 												<th width="10%">Delete</th>
+												<th width="10%">Details</th>
 											</tr>
 										</thead>
 										<tfoot>
@@ -90,8 +90,8 @@
 												<th width="10%">Language</th>
 												<th width="10%">View/Edit</th>
 												<th width="10%">Copy to</th>
-												<th width="10%">Details</th>
 												<th width="10%">Delete</th>
+												<th width="10%">Details</th>
 											</tr>
 										</tfoot>
 									</table>

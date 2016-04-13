@@ -187,7 +187,6 @@
 		
 		if(validUserName==true){
 			
-			$.blockUI(verifyMessageOptions);
 			var txtUserName = $('#txtUserName').val();
 			
 			$.ajax({

@@ -55,6 +55,7 @@
 				$parameters = $row['ID_SNIPPET'].",'".$row['ID_DIRECTORY']."',"."'".$row['SNI_TITLE']."',".$row['SNI_DESCRIPTION'].",'".$row['SNI_LANGUAGE']."',".$row['SNI_CODE'];
 				$row['SNI_EDIT'] = $parameters;
 				$row['SNI_DELETE'] = $row['ID_SNIPPET'];
+				$row['SNI_SHARED'] = $row['ID_SNIPPET'];
 				array_push($aData,$row);
 			}
 			
