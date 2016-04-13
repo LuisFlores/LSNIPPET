@@ -472,6 +472,7 @@
 		//Function for shared snippet
 		function sharedSnipet(idSnippet){
 			alert(idSnippet);
+			return false;
 		};
 		
 	</script>
