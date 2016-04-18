@@ -72,6 +72,7 @@
 							<ul class="dropdown-menu" aria-labelledby="themes">
 								<li><a href="../mySnippets/mySnippets.php">My snippets</a></li>
 								<li><a href="../sharedSnippets/sharedSnippets.php">Shared with me</a></li>
+								<li><a href="../recycleSnippets/recycleSnippets.php">Recycle bin</a></li>
 							</ul>
 						</li>
 						<li>
