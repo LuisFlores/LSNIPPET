@@ -3,7 +3,6 @@
 	error_reporting(~E_NOTICE);
 	require_once("functions.php");
 	
-	
 	/*
 		* class snippets
 		*
@@ -318,6 +317,47 @@
 			);
 			
 			return json_encode($resData);
+		}
+		
+		/*
+			* shareSnippet
+			*
+			* Function for delete shared snippet
+			* @param $idSnippet (ID snippet)
+			* @param $userName (Username)
+			* @return json_encode with success and message param
+		*/
+		function shareSnippet($idSnippet, $userName){
+			
+			$idUserFrom = $this->userId;
+			$currentDate = date("Y-m-d H:i:s");
+			
+			$cUsers = new users;
+			$resUserData = $cUsers->getUserInfoByName($userName);
+			$idUserTo = $resUserData[0]['ID_USER'];
+			
+			$sqlIshare = "INSERT INTO TB_SHARED_SNIPPETS(
+			ID_USER_FROM,
+			ID_USER_TO,
+			ID_SNIPPET,
+			SHS_DATE,
+			SHS_STATUS
+			)VALUES(
+			'".$idUserFrom."',
+			'".$idUserTo."',
+			'".$idSnippet."',
+			'".$currentDate."',
+			'ACTIVE'
+			)";
+			executeQuery($sqlIshare);
+			
+			$resData = array(
+			"success" => true,
+			"message" => "The snippet has been shared successfully."
+			);
+			
+			return json_encode($resData);
+			
 		}
 	}	
 	

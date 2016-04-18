@@ -94,7 +94,7 @@
 		<br><br><br>	
 		
 		<!-- Alert Popup -->
-		<div id="alertDialog" class="modal fade col-lg-12" role="dialog">
+		<div id="alertDialog" class="modal fade col-lg-12" role="dialog" style="z-index:100000;">
 			<div class="modal-dialog">
 				
 				<!-- Modal content-->

@@ -44,6 +44,21 @@
         $cSnippet = new snippets;
 		echo $cSnippet->deleteSnippet($idSnippet);
         break;
+		
+		//Review username at the share moment 
+		case 'reviewUsername':
+		$txtUsername = $_REQUEST['txtUsername'];
+        $cUsers = new users;
+		echo $cUsers->verifyUser($txtUsername);
+        break;
+		
+		//Share snippet
+		case 'shareSnippet':
+		$hiddenShareIdSnippet = $_REQUEST['hiddenShareIdSnippet'];
+		$txtUsername = $_REQUEST['txtUsername'];
+        $cSnippet = new snippets;
+		echo $cSnippet->shareSnippet($hiddenShareIdSnippet, $txtUsername);
+        break;
 	}
 
 ?>

@@ -79,7 +79,7 @@
 												<th width="10%">Language</th>
 												<th width="10%">View/Edit</th>
 												<th width="10%">Delete</th>
-												<th width="10%">Shared</th>
+												<th width="10%">Share</th>
 											</tr>
 										</thead>
 										<tfoot>
@@ -89,7 +89,7 @@
 												<th width="10%">Language</th>
 												<th width="10%">View/Edit</th>
 												<th width="10%">Delete</th>
-												<th width="10%">Shared</th>
+												<th width="10%">Share</th>
 											</tr>
 										</tfoot>
 									</table>
@@ -149,7 +149,7 @@
 														</div>
 													</div>
 												</div>
-
+												
 												<div class="form-group">
 													<div class="col-lg-12 col-lg-offset-5">
 														<button type="button" class="btn btn-primary" onclick="createSnippet()">Save</button>
@@ -188,7 +188,7 @@
 									<div class="well bs-component">
 										<form class="form-horizontal" id="formEditSnippet">
 											<fieldset>
-											
+												
 												<input type="hidden" class="form-control" id="hiddenEditIdSnippet" name="hiddenEditIdSnippet" value="">
 												<div class="form-group">
 													<label class="col-lg-3 control-label">Directory: <font color="red">*</font></label>
@@ -218,7 +218,7 @@
 														</div>
 													</div>
 												</div>
-
+												
 												<div class="form-group">
 													<div class="col-lg-12 col-lg-offset-5">
 														<button type="button" class="btn btn-primary" onclick="editSnippet()">Save</button>
@@ -238,245 +238,376 @@
 			</div>
 			<!-- Dialog to edit snippet-->
 			
+			
+			<!-- Dialog to share snippet-->
+			<div id="dialogShareSnippet" class="modal fade col-lg-12" role="dialog">
+				<div class="modal-dialog">
+					
+					<!-- Modal content-->
+					<div class="modal-content">
+						
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Share snippet</h4>
+						</div>
+						
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="well bs-component">
+										<form class="form-horizontal" id="formShareSnippet">
+											<fieldset>
+												
+												<input type="hidden" class="form-control" id="hiddenShareIdSnippet" name="hiddenShareIdSnippet" value="">
+												
+												<div class="form-group">
+													<label class="col-lg-3 control-label">Share with: <font color="red">*</font></label>
+													<div class="col-lg-9">
+														<input type="text" class="form-control" id="txtUsername" name="txtUsername" placeholder="Username" maxlength="100" onblur="fnToLower()">
+														</div>
+														</div>
+														
+														<div class="form-group">
+														<div class="col-lg-12 col-lg-offset-5">
+															<button type="button" class="btn btn-primary" onclick="saveShareSnippet()">Save</button>
+														</div>
+													</div>
+													
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<!-- Dialog to shared snippet-->
+				
+			</div>
 		</div>
-	</div>
-	
-	<script type="text/javascript">
 		
-		var selectDirectory = '<?php echo $selectDirectory; ?>';
-		
-		//Rules for validate the "formCreateSnippet"
-		$('#formCreateSnippet').validate({
-			rules: {
-				selectDirectoryDialog: 'required',
-				txtTitleSnippet: 'required'
-			},
-			messages: {
-				selectDirectoryDialog: '<label class="text-danger"><i>The field it is required.</i></label>',
-				txtTitleSnippet: '<label class="text-danger"><i>The field it is required.</i></label>'
-			}
-		});
-		
-		//Rules for validate the "formEditSnippet"
-		$('#formEditSnippet').validate({
-			rules: {
-				selectEditDirectoryDialog: 'required',
-				txtEditTitleSnippet: 'required'
-			},
-			messages: {
-				selectEditDirectoryDialog: '<label class="text-danger"><i>The field it is required.</i></label>',
-				txtEditTitleSnippet: '<label class="text-danger"><i>The field it is required.</i></label>'
-			}
-		});
-		
-		//Initiate datatable
-		var tableSnippets = $('#tableSnippets').DataTable({
-		
-			ajax: {
-				url: 'mySnippetsAjax.php',
-				data   : function( d ) {
-					d.option = 'getSnippets',
-					d.idDirectory= $('#selectDirectory').val();
+		<script type="text/javascript">
+			
+			var selectDirectory = '<?php echo $selectDirectory; ?>';
+			
+			//Rules for validate the "formCreateSnippet"
+			$('#formCreateSnippet').validate({
+				rules: {
+					selectDirectoryDialog: 'required',
+					txtTitleSnippet: 'required'
 				},
-				type: 'POST'
-			},
-			scrollX: true,
-			sScrollXInner: "99%",
-			dom: '<"toolbarSnippets">lfrtip',
-			lengthMenu: [ 10, 25, 50, 75, 100 ],
-			columns: [
-			{data: 'SNI_TITLE'},
-			{data: 'SNI_DESCRIPTION'},
-			{data: 'SNI_LANGUAGE'},
-			{data: 'SNI_EDIT', className:'dt-center', orderable: false, mRender: function(data, type, full){
-				
-				var ID_SNIPPET = full.ID_SNIPPET.toString();
-				var ID_DIRECTORY = full.ID_DIRECTORY.toString();
-				var SNI_TITLE = escape(full.SNI_TITLE.toString());
-				var SNI_DESCRIPTION = escape(full.SNI_DESCRIPTION.toString());
-				var SNI_LANGUAGE = full.SNI_LANGUAGE.toString();
-				var SNI_CODE = escape(full.SNI_CODE.toString());
-				var parameters = "'"+ID_SNIPPET+"','"+ID_DIRECTORY+"','"+SNI_TITLE+"','"+SNI_DESCRIPTION+"','"+SNI_LANGUAGE+"','"+SNI_CODE+"'";
-				return '<input type="button" value="View / Edit" class="btn btn-warning btn-xs" onclick="openEditSnippet('+parameters+')" />';
-			}},
-			{data: 'SNI_DELETE', className:'dt-center', orderable:false, mRender: function(data, type, full){
-				var ID_SNIPPET = full.ID_SNIPPET;
-				return '<input type="button" value="Delete" class="btn btn-danger btn-xs" onclick="deleteSnippet('+ID_SNIPPET+')"/>';
-			}},
-			{data: 'SNI_SHARED', className:'dt-center', orderable:false, mRender: function(data, type, full){
-				var ID_SNIPPET = full.ID_SNIPPET;
-				return '<input type="button" value="Shared with" class="btn btn-primary btn-xs" onclick="sharedSnipet('+ID_SNIPPET+')"/>';
-			}}
-			]
-		});
-		$('div.toolbarSnippets').html('<div class="row"><div class="col-lg-2"><input type="button" value="New snippet" class="btn btn-success" data-toggle="modal" data-target="#dialogCreateSnippet"/></div></div>     <br> <div class="row"><label class="col-lg-1">Directories:</label><div class="col-lg-2">' + selectDirectory + '</div></div>');
-		
-		//Reload tableSnippets
-		$('#selectDirectory').on('change', function() {
-			var idDirectory = $('#selectDirectory').val();
-			tableSnippets.ajax.reload();  
-		});
-		
-		//Function to create directory
-		function createSnippet(){
-			
-			var validCreateSnippet = $('#formCreateSnippet').valid();
-			
-			if(validCreateSnippet==true){
-				
-				var selectDirectoryDialog = $('#selectDirectoryDialog').val();
-				var txtTitleSnippet = $('#txtTitleSnippet').val();
-				var txaDescriptionSnippet = $('#txaDescriptionSnippet').val();
-				var selectLanguage = document.getElementById('iframeCreateSnippet').contentWindow.getLanguage();
-				var txaSnippetCode = document.getElementById('iframeCreateSnippet').contentWindow.getValueEditor();
-				
-				$.ajax({
-					
-					url: 'mySnippetsAjax.php',
-					type: 'POST',
-					data: { 
-						
-						option: 'createSnippet',
-						selectDirectoryDialog: selectDirectoryDialog,
-						txtTitleSnippet: txtTitleSnippet,
-						txaDescriptionSnippet: txaDescriptionSnippet,
-						selectLanguage: selectLanguage,
-						txaSnippetCode: txaSnippetCode
-					},
-					success: function(result){
-						
-						
-						var resData = JSON.parse(result);
-						
-						if(resData.success == true){
-							
-							$('#selectDirectoryDialog').val('');
-							$('#txtTitleSnippet').val('');
-							$('#txaDescriptionSnippet').val('');
-							document.getElementById('iframeCreateSnippet').contentWindow.setLanguage('plain');
-							document.getElementById('iframeCreateSnippet').contentWindow.setValueEditor('');
-							//Hide the form
-							$('#dialogCreateSnippet').modal('toggle');
-							//Change alert message
-							$('#alertLegend').text(resData.message);
-							$('#alertDialog').modal('show');
-							tableSnippets.ajax.reload();
-							
-						}
-						else{
-							
-							alert('Error');	
-						}
-						
-					}
-				});
-			}
-			
-		};
-		
-		//Function to open edit snippet form
-		function openEditSnippet(idSnippet, idDirectory, titleSnippet, descriptionSnippet, languageSnippet, codeSnippet){
-			
-			$('#hiddenEditIdSnippet').val(idSnippet);
-			$('#selectEditDirectoryDialog').val(idDirectory);
-			$('#txtEditTitleSnippet').val(unescape(titleSnippet));
-			$('#txaEditDescriptionSnippet').val(unescape(descriptionSnippet));
-			$('#dialogEditSnippet').modal('show');
-			document.getElementById('iframeEditSnippet').contentWindow.setLanguageCode(languageSnippet, unescape(codeSnippet));
-			
-		};
-		
-		//Function to edit snippet
-		function editSnippet(){
-			
-			var validEditSnippet = $('#formEditSnippet').valid();
-			
-			if(validEditSnippet==true){
-				
-				var idSnippet = $('#hiddenEditIdSnippet').val();
-				var selectEditDirectoryDialog = $('#selectEditDirectoryDialog').val();
-				var txtEditTitleSnippet = $('#txtEditTitleSnippet').val();
-				var txaEditDescriptionSnippet = $('#txaEditDescriptionSnippet').val();
-				var selectLanguage = document.getElementById('iframeEditSnippet').contentWindow.getLanguage();
-				var txaSnippetCode = document.getElementById('iframeEditSnippet').contentWindow.getValueEditor();
-				
-				$.ajax({
-					
-					url: 'mySnippetsAjax.php',
-					type: 'POST',
-					data: { 
-						
-						option: 'editSnippet',
-						idSnippet: idSnippet,
-						selectEditDirectoryDialog: selectEditDirectoryDialog,
-						txtEditTitleSnippet: txtEditTitleSnippet,
-						txaEditDescriptionSnippet: txaEditDescriptionSnippet,
-						selectLanguage: selectLanguage,
-						txaSnippetCode: txaSnippetCode
-						
-					},
-					success: function(result){
-						
-						var resData = JSON.parse(result);
-						
-						if(resData.success == true){
-							
-							//Hide the form
-							$('#dialogEditSnippet').modal('toggle');
-							//Change alert message
-							$('#alertLegend').text(resData.message);
-							$('#alertDialog').modal('show');
-							tableSnippets.ajax.reload();
-							
-						}
-						else{
-							
-							alert('Error');	
-						}
-						
-					}
-				});
-			}
-		};
-		
-		//Function for delete snippets
-		function deleteSnippet(idSnippet){
-			
-			$.ajax({
-				
-				url: 'mySnippetsAjax.php',
-				data: { 
-					
-					option: 'deleteSnippet',
-					idSnippet: idSnippet
-				},
-				success: function(result){
-					
-					var resData = JSON.parse(result);
-					
-					if(resData.success == true){
-						
-						tableSnippets.ajax.reload();
-						//Change alert message
-						$('#alertLegend').text(resData.message);
-						$('#alertDialog').modal('show');
-					}
-					else{
-						
-						alert('Error');	
-					}
+				messages: {
+					selectDirectoryDialog: '<label class="text-danger"><i>The field it is required.</i></label>',
+					txtTitleSnippet: '<label class="text-danger"><i>The field it is required.</i></label>'
 				}
 			});
-		};
-		
-		//Function for shared snippet
-		function sharedSnipet(idSnippet){
-			alert(idSnippet);
-			return false;
-		};
-		
-	</script>
-</article>
-<?php
-	require_once("../footers/mainFooter.php");
-?>																																		
+			
+			//Rules for validate the "formEditSnippet"
+			$('#formEditSnippet').validate({
+				rules: {
+					selectEditDirectoryDialog: 'required',
+					txtEditTitleSnippet: 'required'
+				},
+				messages: {
+					selectEditDirectoryDialog: '<label class="text-danger"><i>The field it is required.</i></label>',
+					txtEditTitleSnippet: '<label class="text-danger"><i>The field it is required.</i></label>'
+				}
+			});
+			
+			//Rules for validate the "formShareSnippet"
+			$('#formShareSnippet').validate({
+				rules: {
+					txtUsername: 'required'
+				},
+				messages: {
+					txtUsername: '<label class="text-danger"><i>The field it is required.</i></label>'
+				}
+			});
+			
+			//Initiate datatable
+			var tableSnippets = $('#tableSnippets').DataTable({
+				
+				ajax: {
+					url: 'mySnippetsAjax.php',
+					data   : function( d ) {
+						d.option = 'getSnippets',
+						d.idDirectory= $('#selectDirectory').val();
+					},
+					type: 'POST'
+				},
+				scrollX: true,
+				sScrollXInner: "99%",
+				dom: '<"toolbarSnippets">lfrtip',
+				lengthMenu: [ 10, 25, 50, 75, 100 ],
+				columns: [
+				{data: 'SNI_TITLE'},
+				{data: 'SNI_DESCRIPTION'},
+				{data: 'SNI_LANGUAGE'},
+				{data: 'SNI_EDIT', className:'dt-center', orderable: false, mRender: function(data, type, full){
+					
+					var ID_SNIPPET = full.ID_SNIPPET.toString();
+					var ID_DIRECTORY = full.ID_DIRECTORY.toString();
+					var SNI_TITLE = escape(full.SNI_TITLE.toString());
+					var SNI_DESCRIPTION = escape(full.SNI_DESCRIPTION.toString());
+					var SNI_LANGUAGE = full.SNI_LANGUAGE.toString();
+					var SNI_CODE = escape(full.SNI_CODE.toString());
+					var parameters = "'"+ID_SNIPPET+"','"+ID_DIRECTORY+"','"+SNI_TITLE+"','"+SNI_DESCRIPTION+"','"+SNI_LANGUAGE+"','"+SNI_CODE+"'";
+					return '<input type="button" value="View / Edit" class="btn btn-warning btn-xs" onclick="openEditSnippet('+parameters+')" />';
+				}},
+				{data: 'SNI_DELETE', className:'dt-center', orderable:false, mRender: function(data, type, full){
+					var ID_SNIPPET = full.ID_SNIPPET;
+					return '<input type="button" value="Delete" class="btn btn-danger btn-xs" onclick="deleteSnippet('+ID_SNIPPET+')"/>';
+				}},
+				{data: 'SNI_SHARED', className:'dt-center', orderable:false, mRender: function(data, type, full){
+					var ID_SNIPPET = full.ID_SNIPPET;
+					return '<input type="button" value="Share with" class="btn btn-primary btn-xs" onclick="shareSnipet('+ID_SNIPPET+')"/>';
+				}}
+				]
+			});
+			$('div.toolbarSnippets').html('<div class="row"><div class="col-lg-2"><input type="button" value="New snippet" class="btn btn-success" data-toggle="modal" data-target="#dialogCreateSnippet"/></div></div>     <br> <div class="row"><label class="col-lg-1">Directories:</label><div class="col-lg-2">' + selectDirectory + '</div></div>');
+			
+			//Reload tableSnippets
+			$('#selectDirectory').on('change', function() {
+				var idDirectory = $('#selectDirectory').val();
+				tableSnippets.ajax.reload();  
+			});
+			
+			//Function to create directory
+			function createSnippet(){
+				
+				var validCreateSnippet = $('#formCreateSnippet').valid();
+				
+				if(validCreateSnippet==true){
+					
+					var selectDirectoryDialog = $('#selectDirectoryDialog').val();
+					var txtTitleSnippet = $('#txtTitleSnippet').val();
+					var txaDescriptionSnippet = $('#txaDescriptionSnippet').val();
+					var selectLanguage = document.getElementById('iframeCreateSnippet').contentWindow.getLanguage();
+					var txaSnippetCode = document.getElementById('iframeCreateSnippet').contentWindow.getValueEditor();
+					
+					$.ajax({
+						
+						url: 'mySnippetsAjax.php',
+						type: 'POST',
+						data: { 
+							
+							option: 'createSnippet',
+							selectDirectoryDialog: selectDirectoryDialog,
+							txtTitleSnippet: txtTitleSnippet,
+							txaDescriptionSnippet: txaDescriptionSnippet,
+							selectLanguage: selectLanguage,
+							txaSnippetCode: txaSnippetCode
+						},
+						success: function(result){
+							
+							
+							var resData = JSON.parse(result);
+							
+							if(resData.success == true){
+								
+								$('#selectDirectoryDialog').val('');
+								$('#txtTitleSnippet').val('');
+								$('#txaDescriptionSnippet').val('');
+								document.getElementById('iframeCreateSnippet').contentWindow.setLanguage('plain');
+								document.getElementById('iframeCreateSnippet').contentWindow.setValueEditor('');
+								//Hide the form
+								$('#dialogCreateSnippet').modal('toggle');
+								//Change alert message
+								$('#alertLegend').text(resData.message);
+								$('#alertDialog').modal('show');
+								tableSnippets.ajax.reload();
+								
+							}
+							else{
+								
+								alert('Error');	
+							}
+							
+						}
+					});
+				}
+				
+			};
+			
+			//Function to open edit snippet form
+			function openEditSnippet(idSnippet, idDirectory, titleSnippet, descriptionSnippet, languageSnippet, codeSnippet){
+				
+				$('#hiddenEditIdSnippet').val(idSnippet);
+				$('#selectEditDirectoryDialog').val(idDirectory);
+				$('#txtEditTitleSnippet').val(unescape(titleSnippet));
+				$('#txaEditDescriptionSnippet').val(unescape(descriptionSnippet));
+				$('#dialogEditSnippet').modal('show');
+				document.getElementById('iframeEditSnippet').contentWindow.setLanguageCode(languageSnippet, unescape(codeSnippet));
+				
+			};
+			
+			//Function to edit snippet
+			function editSnippet(){
+				
+				var validEditSnippet = $('#formEditSnippet').valid();
+				
+				if(validEditSnippet==true){
+					
+					var idSnippet = $('#hiddenEditIdSnippet').val();
+					var selectEditDirectoryDialog = $('#selectEditDirectoryDialog').val();
+					var txtEditTitleSnippet = $('#txtEditTitleSnippet').val();
+					var txaEditDescriptionSnippet = $('#txaEditDescriptionSnippet').val();
+					var selectLanguage = document.getElementById('iframeEditSnippet').contentWindow.getLanguage();
+					var txaSnippetCode = document.getElementById('iframeEditSnippet').contentWindow.getValueEditor();
+					
+					$.ajax({
+						
+						url: 'mySnippetsAjax.php',
+						type: 'POST',
+						data: { 
+							
+							option: 'editSnippet',
+							idSnippet: idSnippet,
+							selectEditDirectoryDialog: selectEditDirectoryDialog,
+							txtEditTitleSnippet: txtEditTitleSnippet,
+							txaEditDescriptionSnippet: txaEditDescriptionSnippet,
+							selectLanguage: selectLanguage,
+							txaSnippetCode: txaSnippetCode
+							
+						},
+						success: function(result){
+							
+							var resData = JSON.parse(result);
+							
+							if(resData.success == true){
+								
+								//Hide the form
+								$('#dialogEditSnippet').modal('toggle');
+								//Change alert message
+								$('#alertLegend').text(resData.message);
+								$('#alertDialog').modal('show');
+								tableSnippets.ajax.reload();
+								
+							}
+							else{
+								
+								alert('Error');	
+							}
+							
+						}
+					});
+				}
+			};
+			
+			//Function for delete snippets
+			function deleteSnippet(idSnippet){
+				
+				$.ajax({
+					
+					url: 'mySnippetsAjax.php',
+					data: { 
+						
+						option: 'deleteSnippet',
+						idSnippet: idSnippet
+					},
+					success: function(result){
+						
+						var resData = JSON.parse(result);
+						
+						if(resData.success == true){
+							
+							tableSnippets.ajax.reload();
+							//Change alert message
+							$('#alertLegend').text(resData.message);
+							$('#alertDialog').modal('show');
+						}
+						else{
+							
+							alert('Error');	
+						}
+					}
+				});
+			};
+			
+			//Function for shared snippet
+			function shareSnipet(idSnippet){
+				
+				$('#hiddenShareIdSnippet').val(idSnippet);
+				$('#txtUsername').val('');
+				$('#dialogShareSnippet').modal('show');
+			};
+			
+			//Function for save the share snippet
+			function saveShareSnippet(){
+				
+				var validShareSnippet = $('#formShareSnippet').valid();
+				
+				if(validShareSnippet==true){
+					
+					var hiddenShareIdSnippet = $('#hiddenShareIdSnippet').val();
+					var txtUsername = $('#txtUsername').val();
+					
+					$.ajax({
+						
+						url: 'mySnippetsAjax.php',
+						data: { 
+							
+							option: 'reviewUsername',
+							txtUsername: txtUsername
+						},
+						success: function(result){
+							
+							
+							var resData = JSON.parse(result);
+							
+							if(resData.existUser == true){
+								
+								$.ajax({
+									
+									url: 'mySnippetsAjax.php',
+									data: { 
+										
+										option: 'shareSnippet',
+										hiddenShareIdSnippet: hiddenShareIdSnippet,
+										txtUsername: txtUsername
+									},
+									success: function(result){
+										
+										
+										var resData = JSON.parse(result);
+										
+										if(resData.success == true){
+											
+											//Hide the form
+											$('#dialogShareSnippet').modal('toggle');
+											
+											//Change alert message
+											$('#alertLegend').text(resData.message);
+											$('#alertDialog').modal('show');
+										}
+										
+									}
+								});
+							}
+							else{
+								
+								//Change alert message
+								$('#alertLegend').text('The username does not exist.');
+								$('#alertDialog').modal('show');
+							}
+							
+						}
+					});
+				}
+			};
+			
+			function fnToLower(){
+				
+				var txtUsername = $('#txtUsername').val();
+				var txtUsername = txtUsername.toLowerCase();
+				$('#txtUsername').val(txtUsername);
+			};
+			
+		</script>
+	</article>
+	<?php
+		require_once("../footers/mainFooter.php");
+	?>																																			
