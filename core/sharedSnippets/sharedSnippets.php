@@ -18,7 +18,7 @@
 	
 	foreach($resSdir as $key => $row){
 		
-		$selectDirectory .= '<option value="'.$row['ID_DIRECTORY'].'">'.mysql_escape_string($row['DIR_NAME']).'</option>';
+		$selectDirectory .= '<option value="'.$row['ID_DIRECTORY'].'">'.mysql_real_escape_string($row['DIR_NAME']).'</option>';
 		$selectDirectoryDialog .= '<option value="'.$row['ID_DIRECTORY'].'">'.$row['DIR_NAME'].'</option>';
 		$selectEditDirectoryDialog .= '<option value="'.$row['ID_DIRECTORY'].'">'.$row['DIR_NAME'].'</option>';
 	}
