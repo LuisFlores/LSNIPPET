@@ -142,7 +142,7 @@
 													<div class="form-group">
 														<!--<div class="embed-responsive embed-responsive-4by3">-->
 														<div>
-															<iframe class="embed-responsive-item" id="iframeEditSnippet" src="/snippet/core/sharedSnippets/sharedSnippets.html" style="overflow:hidden; height:440; width:100%; margin:0px" frameborder="0"></iframe>
+															<iframe class="embed-responsive-item" id="iframeEditSnippet" src="/lsnippet/core/sharedSnippets/sharedSnippets.html" style="overflow:hidden; height:440; width:100%; margin:0px" frameborder="0"></iframe>
 														</div>
 													</div>
 												</div>

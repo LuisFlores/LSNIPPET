@@ -145,7 +145,7 @@
 													<div class="form-group">
 														<!--<div class="embed-responsive embed-responsive-4by3">-->
 														<div>
-															<iframe class="embed-responsive-item" id="iframeCreateSnippet" src="/snippet/core/mySnippets/mySnippets.html" style="overflow:hidden; height:440; width:100%; margin:0px" frameborder="0"></iframe>
+															<iframe class="embed-responsive-item" id="iframeCreateSnippet" src="/lsnippet/core/mySnippets/mySnippets.html" style="overflow:hidden; height:440; width:100%; margin:0px" frameborder="0"></iframe>
 														</div>
 													</div>
 												</div>
@@ -214,7 +214,7 @@
 													<div class="form-group">
 														<!--<div class="embed-responsive embed-responsive-4by3">-->
 														<div>
-															<iframe class="embed-responsive-item" id="iframeEditSnippet" src="/snippet/core/mySnippets/mySnippets.html" style="overflow:hidden; height:440; width:100%; margin:0px" frameborder="0"></iframe>
+															<iframe class="embed-responsive-item" id="iframeEditSnippet" src="/lsnippet/core/mySnippets/mySnippets.html" style="overflow:hidden; height:440; width:100%; margin:0px" frameborder="0"></iframe>
 														</div>
 													</div>
 												</div>

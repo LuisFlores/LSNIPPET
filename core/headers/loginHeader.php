@@ -5,26 +5,26 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		
 		<!-- Jquery JS -->
-		<script type="text/javascript" src="/snippet/js/jquery/jquery-1.12.0.min.js"></script>
-		<script type="text/javascript" src="/snippet/js/jquery/jquery-migrate-1.2.1.js"></script>
-		<script type="text/javascript" src="/snippet/js/jquery/jquery.blockUI.js"></script>
+		<script type="text/javascript" src="/lsnippet/js/jquery/jquery-1.12.0.min.js"></script>
+		<script type="text/javascript" src="/lsnippet/js/jquery/jquery-migrate-1.2.1.js"></script>
+		<script type="text/javascript" src="/lsnippet/js/jquery/jquery.blockUI.js"></script>
 		
 		<!-- Bootstrap JS -->
-		<script src="/snippet/js/bootstrap/bootstrap.min.js"></script>
-		<script src="/snippet/js/bootstrap/custom.js"></script>
+		<script src="/lsnippet/js/bootstrap/bootstrap.min.js"></script>
+		<script src="/lsnippet/js/bootstrap/custom.js"></script>
 		
 		<!-- Datatables JS -->
-		<script type="text/javascript" language="javascript" src="/snippet/js/DataTables-1.10.11/media/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" language="javascript" src="/snippet/js/DataTables-1.10.11/media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="/lsnippet/js/DataTables-1.10.11/media/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" language="javascript" src="/lsnippet/js/DataTables-1.10.11/media/js/jquery.dataTables.js"></script>
 		
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="/snippet/css/bootstrap/bootstrap.css" />
+		<link rel="stylesheet" href="/lsnippet/css/bootstrap/bootstrap.css" />
 		
 		<!-- Datatables CSS -->
-		<link rel="stylesheet" href="/snippet/js/DataTables-1.10.11/media/css/jquery.dataTables.css" />
+		<link rel="stylesheet" href="/lsnippet/js/DataTables-1.10.11/media/css/jquery.dataTables.css" />
 		
 		<!-- Jquery validation JS and CSS -->
-		<script type="text/javascript" src="/snippet/js/jquery-validation-1.15.0/dist/jquery.validate.js"></script>		
+		<script type="text/javascript" src="/lsnippet/js/jquery-validation-1.15.0/dist/jquery.validate.js"></script>		
 		
 		<title>L-SNIPPETS</title>
 		

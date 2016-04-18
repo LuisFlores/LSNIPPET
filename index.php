@@ -7,7 +7,7 @@
 ?>
 
 <div class="col-lg-12 col-md-12 col-sm-12" style="height:100%;">
-	<iframe class="embed-responsive-item" id="mainFrame" name="mainFrame" src="/snippet/core/main/login.php" style="overflow:hidden; height:100%; width:100%; margin:0px" frameborder="0"></iframe>
+	<iframe class="embed-responsive-item" id="mainFrame" name="mainFrame" src="/lsnippet/core/main/login.php" style="overflow:hidden; height:100%; width:100%; margin:0px" frameborder="0"></iframe>
 </div>
 
 <?php
