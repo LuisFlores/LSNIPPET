@@ -359,6 +359,37 @@
 			return json_encode($resData);
 			
 		}
+		
+		/*
+			* getUsersShared
+			*
+			* Function for delete shared snippet
+			* @param $idSnippet (ID snippet)
+			* @return json_encode with success and message param
+		*/
+		function getUsersShared($idSnippet){
+			
+			$sqlSdata = "SELECT SS.ID_SHARED_SNIPPET, U.USERNAME, CONCAT(U.FIRSTNAME, ' ', U.LASTNAME) AS NAME, EMAIL
+			FROM TB_SHARED_SNIPPETS SS, USERS U
+			WHERE SS.ID_USER_TO = U.ID_USER
+			AND SS.ID_SNIPPET = '".$idSnippet."'
+			AND SS.SHS_STATUS = 'ACTIVE'
+			AND U.STATUS = 'ACTIVE'";
+			$resSdata = executeQuery($sqlSdata);
+			
+			foreach($resSdata as $key => $row){
+				
+				$resSdata[$key]['SNI_DELETE'] = $row['ID_SHARED_SNIPPET'];
+			}
+			
+			$resData = array(
+			"success" => true,
+			"data" => $resSdata
+			);
+			
+			return json_encode($resData);
+			
+		}
 	}	
 	
 ?>

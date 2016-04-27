@@ -27,6 +27,9 @@
 		<!-- Datatables JS -->
 		<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/media/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/extensions/FixedColumns/js/dataTables.fixedColumns.js"></script>
+		<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/extensions/FixedColumns/js/dataTables.fixedColumns.min.js"></script>
+		<script type="text/javascript" language="javascript" src="../../js/DataTables-1.10.11/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
 		
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="../../css/bootstrap/bootstrap.css" />

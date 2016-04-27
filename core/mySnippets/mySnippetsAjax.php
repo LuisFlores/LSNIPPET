@@ -59,6 +59,13 @@
         $cSnippet = new snippets;
 		echo $cSnippet->shareSnippet($hiddenShareIdSnippet, $txtUsername);
         break;
+		
+		//Get users shared
+		case 'getUsersShared':
+		$idSnippet = $_REQUEST['idSnippet'];
+        $cSnippet = new snippets;
+		echo $cSnippet->getUsersShared($idSnippet);
+        break;
 	}
 
 ?>
