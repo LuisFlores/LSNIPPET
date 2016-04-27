@@ -585,11 +585,7 @@
 			
 			$('#hiddenShareIdSnippet').val(idSnippet);
 			$('#txtUsername').val('');
-			
-			
-			
 			$('#dialogShareSnippet').modal('show');
-			
 			tableSharedSnippets.ajax.reload(); 
 			setTimeout(function(){tableSharedSnippets.columns.adjust().draw();}, 200);
 		};
